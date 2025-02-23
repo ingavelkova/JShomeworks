@@ -1,41 +1,48 @@
 let services = {
-    "Експрес-мийка без сушіння": "300 грн",
-    "Експрес-мийка з піною без сушіння": "500 грн",
-    "Безконтактне миття (кузов, килимки, пороги) ": "800 грн",
-};
+    "Express wash without drying": "300 UAH",
+    "Express wash with foam without drying": "500 UAH",
+    "Contactless washing (body, mats, thresholds)": "800 UAH",
+    prices: function price() {
+      let sum = 0;
+      Object.values(this).forEach(value => {
+            if (typeof value === 'string') {
+                sum = sum + parseInt(value); 
+            }
+          }
+        );
+      return ('Sum: ' + sum + ' UAH');
+    },
+    minPrice: function() {
+      let min = Infinity; 
+      Object.values(this).forEach(value => {
+        if (typeof value === 'string') {
+          let price = parseInt(value); 
+              if (price < min) {
+                  min = price; 
+              }
+            }
+          }
+        );
+      return ('Min price: ' + min + ' UAH');
+    },
+    maxPrice: function() {
+      let max = 0; 
+      Object.values(this).forEach(value => {
+        if (typeof value === 'string') {
+          let price = parseInt(value); 
+              if (price > max) {
+                  max = price; 
+              }
+            }
+          }
+        );
+      return ('Max price: ' + max + ' UAH');
+  } 
+  };  
+  
+services["Contactless nano washing (body, mats, thresholds)"] = "1100 UAH";
 
-services["Безконтактна наномийка (кузов, килимки, пороги)"] = "1100 грн";
-const values = Object.values(services);
-
-function price() {
-    let sum = 0;
-    for (let i = 0; i < values.length; i++) {
-        sum = sum + parseInt(values[i]);
-        }
-    return sum + " грн";
-}
-
-function minPrice() {
-    let min = parseInt(values[0]);
-    for (let i = 0; i < values.length; i++) {
-        if (parseInt(values[i]) < min) {
-            min = parseInt(values[i]);
-        };
-    };
-    return (min + ' грн');
-};
-
-function maxPrice() {
-    let max = parseInt(values[0]);
-    for (let i = 0; i < values.length; i++) {
-        if (parseInt(values[i]) > max) {
-            max = parseInt(values[i]);
-        };
-    };
-    return (max + ' грн');
-};
-
-services["Сума"] = price();
-services['Мінімальна ціна'] = minPrice();
-services['Максимальнв ціна'] = maxPrice();
+console.log(services.prices());
+console.log(services.minPrice());
+console.log(services.maxPrice());
 console.log(services);
